@@ -18,15 +18,19 @@ interface QRCodeDisplayProps {
 
 export function QRCodeDisplay({ url, logo, size, fgColor, bgColor }: QRCodeDisplayProps) {
   const t = useTranslations('QRGenerator');
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const qrCanvasRef = useRef<HTMLCanvasElement>(null);
+  const displayCanvasRef = useRef<HTMLCanvasElement>(null);
   const [qrDataUrl, setQrDataUrl] = useState<string>('');
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const generateQR = async () => {
-      if (canvasRef.current) {
+      if (qrCanvasRef.current && displayCanvasRef.current) {
         try {
-          const dataUrl = await generateQRWithLogo(canvasRef.current, logo);
+          // Wait a bit for QRCodeCanvas to render
+          await new Promise(resolve => setTimeout(resolve, 50));
+
+          const dataUrl = await generateQRWithLogo(qrCanvasRef.current, displayCanvasRef.current, logo, size);
           setQrDataUrl(dataUrl);
         } catch (error) {
           console.error('Error generating QR code:', error);
@@ -35,7 +39,7 @@ export function QRCodeDisplay({ url, logo, size, fgColor, bgColor }: QRCodeDispl
     };
 
     if (url) {
-      setTimeout(generateQR, 100);
+      generateQR();
     }
   }, [url, logo, size, fgColor, bgColor]);
 
@@ -64,13 +68,23 @@ export function QRCodeDisplay({ url, logo, size, fgColor, bgColor }: QRCodeDispl
       <CardContent className="pt-6">
         <div className="flex flex-col items-center gap-6">
           <div className="relative">
-            <QRCodeCanvas
-              ref={canvasRef}
-              value={url}
-              size={size}
-              level="H"
-              fgColor={fgColor}
-              bgColor={bgColor}
+            {/* Hidden QR code canvas for generation */}
+            <div className="hidden">
+              <QRCodeCanvas
+                ref={qrCanvasRef}
+                value={url}
+                size={size}
+                level="H"
+                fgColor={fgColor}
+                bgColor={bgColor}
+              />
+            </div>
+
+            {/* Display canvas with logo overlay */}
+            <canvas
+              ref={displayCanvasRef}
+              width={size}
+              height={size}
               className="border-2 border-border rounded-lg"
             />
           </div>

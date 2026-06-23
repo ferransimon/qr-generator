@@ -1,25 +1,34 @@
 export async function generateQRWithLogo(
-  canvasElement: HTMLCanvasElement,
-  logoFile: File | null
+  sourceCanvas: HTMLCanvasElement,
+  displayCanvas: HTMLCanvasElement,
+  logoFile: File | null,
+  size: number
 ): Promise<string> {
-  const canvas = canvasElement;
-  const ctx = canvas.getContext('2d');
+  const ctx = displayCanvas.getContext('2d');
 
   if (!ctx) {
     throw new Error('Canvas context not available');
   }
 
+  // Clear the display canvas
+  ctx.clearRect(0, 0, size, size);
+
+  // Draw the QR code from source canvas to display canvas
+  ctx.drawImage(sourceCanvas, 0, 0, size, size);
+
+  // If no logo, return the QR code as is
   if (!logoFile) {
-    return canvas.toDataURL('image/png');
+    return displayCanvas.toDataURL('image/png');
   }
 
-  const logoImage = await loadImage(logoFile);
-  const size = canvas.width;
+  // Load and draw the logo
+  const logoImage = await loadImageFromFile(logoFile);
   const logoSize = size * 0.2;
   const logoX = (size - logoSize) / 2;
   const logoY = (size - logoSize) / 2;
   const padding = 10;
 
+  // Draw white background behind logo
   ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(
     logoX - padding,
@@ -28,12 +37,13 @@ export async function generateQRWithLogo(
     logoSize + padding * 2
   );
 
+  // Draw the logo
   ctx.drawImage(logoImage, logoX, logoY, logoSize, logoSize);
 
-  return canvas.toDataURL('image/png');
+  return displayCanvas.toDataURL('image/png');
 }
 
-function loadImage(file: File): Promise<HTMLImageElement> {
+function loadImageFromFile(file: File): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (e) => {
