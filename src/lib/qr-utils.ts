@@ -78,9 +78,3 @@ export async function copyQRToClipboard(dataUrl: string): Promise<void> {
     throw error;
   }
 }
-
-export function shareViaWhatsApp(url: string) {
-  const message = encodeURIComponent(`Check out this URL: ${url}`);
-  const whatsappUrl = `https://wa.me/?text=${message}`;
-  window.open(whatsappUrl, '_blank');
-}

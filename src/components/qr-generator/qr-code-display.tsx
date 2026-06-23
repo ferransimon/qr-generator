@@ -4,9 +4,9 @@ import { useRef, useEffect, useState } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Download, Copy, Share2, Check } from 'lucide-react';
+import { Download, Copy, Check } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { generateQRWithLogo, downloadQRCode, copyQRToClipboard, shareViaWhatsApp } from '@/lib/qr-utils';
+import { generateQRWithLogo, downloadQRCode, copyQRToClipboard } from '@/lib/qr-utils';
 
 interface QRCodeDisplayProps {
   url: string;
@@ -59,10 +59,6 @@ export function QRCodeDisplay({ url, logo, size, fgColor, bgColor }: QRCodeDispl
     }
   };
 
-  const handleShare = () => {
-    shareViaWhatsApp(url);
-  };
-
   return (
     <Card className="w-full">
       <CardContent className="pt-6">
@@ -107,11 +103,6 @@ export function QRCodeDisplay({ url, logo, size, fgColor, bgColor }: QRCodeDispl
                   {t('copy')}
                 </>
               )}
-            </Button>
-
-            <Button onClick={handleShare} disabled={!qrDataUrl} variant="outline">
-              <Share2 className="mr-2 h-4 w-4" />
-              {t('share')}
             </Button>
           </div>
         </div>
