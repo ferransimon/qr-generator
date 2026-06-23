@@ -1,0 +1,39 @@
+{
+  "QRGenerator": {
+    "title": "Generador de Códigos QR",
+    "description": "Genera códigos QR personalizados con logos para tus URLs",
+    "urlLabel": "Introduce la URL",
+    "urlPlaceholder": "https://ejemplo.com",
+    "uploadLogo": "Subir Logo",
+    "logoOptional": "(opcional)",
+    "generate": "Generar Código QR",
+    "download": "Descargar",
+    "copy": "Copiar al Portapapeles",
+    "share": "Compartir por WhatsApp",
+    "copied": "¡Copiado!",
+    "copyError": "Error al copiar",
+    "size": "Tamaño",
+    "small": "Pequeño (256px)",
+    "medium": "Mediano (512px)",
+    "large": "Grande (1024px)",
+    "foregroundColor": "Color del QR",
+    "backgroundColor": "Color de Fondo",
+    "clearLogo": "Quitar Logo",
+    "errors": {
+      "invalidUrl": "Por favor introduce una URL válida",
+      "required": "Este campo es obligatorio",
+      "fileSize": "El tamaño del archivo debe ser menor a 2MB",
+      "fileType": "Solo se permiten archivos PNG, JPG y SVG"
+    }
+  },
+  "LanguageSwitcher": {
+    "label": "Idioma",
+    "en": "English",
+    "es": "Español"
+  },
+  "ThemeToggle": {
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  }
+}
