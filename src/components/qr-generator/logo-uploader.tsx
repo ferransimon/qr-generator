@@ -48,7 +48,7 @@ export function LogoUploader({ value, onChange, error }: LogoUploaderProps) {
           <input
             id="logo-upload"
             type="file"
-            accept="image/png,image/jpeg,image/jpg,image/svg+xml"
+            accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp"
             onChange={handleFileChange}
             className="hidden"
           />

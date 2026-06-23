@@ -8,7 +8,7 @@ export const qrGeneratorSchema = z.object({
       'fileSize'
     )
     .refine(
-      (file) => !file || ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'].includes(file.type),
+      (file) => !file || ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/webp'].includes(file.type),
       'fileType'
     ),
   size: z.number().min(256).max(1024),

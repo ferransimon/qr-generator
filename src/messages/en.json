@@ -23,7 +23,7 @@
       "invalidUrl": "Please enter a valid URL",
       "required": "This field is required",
       "fileSize": "File size must be less than 2MB",
-      "fileType": "Only PNG, JPG, and SVG files are allowed"
+      "fileType": "Only PNG, JPG, SVG, and WebP files are allowed"
     }
   },
   "LanguageSwitcher": {
