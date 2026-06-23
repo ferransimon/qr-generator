@@ -23,6 +23,9 @@ export function QRCodeDisplay({ url, logo, size, fgColor, bgColor }: QRCodeDispl
   const [qrDataUrl, setQrDataUrl] = useState<string>('');
   const [copied, setCopied] = useState(false);
 
+  // Fixed display size for web view
+  const displaySize = 400;
+
   useEffect(() => {
     const generateQR = async () => {
       if (qrCanvasRef.current && displayCanvasRef.current) {
@@ -68,7 +71,7 @@ export function QRCodeDisplay({ url, logo, size, fgColor, bgColor }: QRCodeDispl
       <CardContent className="pt-6">
         <div className="flex flex-col items-center gap-6">
           <div className="relative">
-            {/* Hidden QR code canvas for generation */}
+            {/* Hidden QR code canvas for generation at full size */}
             <div className="hidden">
               <QRCodeCanvas
                 ref={qrCanvasRef}
@@ -80,11 +83,12 @@ export function QRCodeDisplay({ url, logo, size, fgColor, bgColor }: QRCodeDispl
               />
             </div>
 
-            {/* Display canvas with logo overlay */}
+            {/* Display canvas with logo overlay - scaled to fixed size for web view */}
             <canvas
               ref={displayCanvasRef}
               width={size}
               height={size}
+              style={{ width: `${displaySize}px`, height: `${displaySize}px` }}
               className="border-2 border-border rounded-lg"
             />
           </div>
